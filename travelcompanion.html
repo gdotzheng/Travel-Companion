@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Travel Companion</title>
+
+  <!-- jQuery -->
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/popper.min.js"></script>
+
+  <!-- jQuery UI -->
+  <script src="js/jquery-ui"></script>
+  <link rel="stylesheet" type="text/css" href="styles/jquery-ui.css" />
+
+  <!-- Bootstrap -->
+  <script src="js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+
+  <!-- Bootstrap Select -->
+  <script src="js/bootstrap-select.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/bootstrap-select.css" />
+
+  <!-- Custom Style and Script -->
+  <script type="text/javascript" src="js/background.js"></script>
+  <link rel="stylesheet" type="text/css" href="styles/stylesheet.css"/>
+
+</head>
+
+<body>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places"></script>
+
+  <script>
+    function initialize() {
+      var options = {
+        types: ['(cities)'],
+        componentRestrictions: {
+          country: "us"
+        }
+      };
+
+      var input = document.getElementById('citysearch');
+      var autocomplete = new google.maps.places.Autocomplete(input, options);
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+
+  <h1 align="center">Travel Companion</h1>
+
+  <div id="display">
+    <div id="box1">
+      <input id="citysearch" type="text" style="width: 150px; height: 30px" placeholder="Enter City">
+      <input type="date" name="bday" id="bday">
+    </div>
+    <div id="addbutton">
+      <img src="https://i.imgur.com/tJGKRxW.png" align="middle" width="100" height="100" onclick="createDiv();" />
+    </div>
+
+</body>
+
+</html>
