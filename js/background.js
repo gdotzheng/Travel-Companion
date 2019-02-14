@@ -15,4 +15,7 @@ function createDiv() {
   document.getElementById('display').removeChild(document.getElementById("addbutton"));
   document.getElementById('display').appendChild(div);
   document.getElementById('display').appendChild(button);
+  initialize()
+  var id = $('#citysearch').val();
+  alert(id)
 }
