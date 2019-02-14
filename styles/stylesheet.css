@@ -11,7 +11,7 @@ h1 {
 
 input[type="text"] {
   margin: auto;
-  margin-top: 20px;
+  margin-top: 15px;
   display: block;
   text-align: center;
   border: 0px solid;
@@ -29,8 +29,62 @@ div {
   border-radius: 5px;
 }
 
+#theImg {
+  margin-left: 13px
+}
+
 ::placeholder {
   color: black;
+}
+
+#result {
+  margin-top: 10px;
+  width: 180px;
+  height: 290px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+#date {
+  width: 140px;
+  height: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  padding-top: 8px;
+}
+
+#weather {
+  width: 140px;
+  height: 50px;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+  font-size: 20px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+#weathericon {
+  margin-top: 10px;
+  width: 140px;
+  height: 100px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#temp {
+  margin-top: 10px;
+  width: 140px;
+  height: 70px;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+  font-size: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 }
 
 #display {
