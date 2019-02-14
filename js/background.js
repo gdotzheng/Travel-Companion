@@ -1,10 +1,12 @@
 var i = 0
+var z = -1
 
 function createDiv() {
   var button = document.createElement('div')
   button.id = "addbutton"
   button.innerHTML = '<img src="https://i.imgur.com/tJGKRxW.png" align="middle" width="100" height="100" onclick="createDiv();" />'
   i += 1
+  z += 1
   if (i > 6) {
     i = 0
   }
@@ -16,6 +18,6 @@ function createDiv() {
   document.getElementById('display').appendChild(div);
   document.getElementById('display').appendChild(button);
   initialize()
-  var id = $('#citysearch').val();
-  alert(id)
+  var city = $("#" + arr[z]).find('#citysearch').val();
+  console.log(city)
 }
