@@ -12,7 +12,7 @@ function createDiv() {
   }
   var arr = ["box1", "box2", "box3", "box4", "box5", "box6", "box7"]
   var div = document.createElement('div');
-  div.innerHTML = `
+  div.innerHTML = "
   <input class="addresses" id="citysearch" type="text" style="width: 150px; height: 30px" placeholder="Enter City">
   <div id="result">
     <div id="date">
@@ -27,7 +27,7 @@ function createDiv() {
     <div id="temp">
 
     </div>
-  </div>`;
+  </div>";
   //div.innerHTML = document.getElementById("box1").innerHTML
   div.id = arr[i];
   document.getElementById('display').removeChild(document.getElementById("addbutton"));
