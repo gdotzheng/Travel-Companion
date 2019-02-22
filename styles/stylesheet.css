@@ -17,14 +17,6 @@ input[type="text"] {
   border: 0px solid;
 }
 
-input[type="date"] {
-  margin: auto;
-  margin-top: 20px;
-  display: block;
-  text-align: center;
-  border: 0px solid;
-}
-
 div {
   border-radius: 5px;
 }
@@ -45,16 +37,6 @@ div {
   margin-right: 10px;
 }
 
-#date {
-  width: 140px;
-  height: 50px;
-  margin-left: 20px;
-  margin-right: 20px;
-  font-size: 30px;
-  font-weight: bold;
-  text-align: center;
-  padding-top: 8px;
-}
 
 #weather {
   width: 140px;
