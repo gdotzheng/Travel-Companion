@@ -29,7 +29,7 @@ div {
   color: black;
 }
 
-#result {
+.result {
   margin-top: 10px;
   width: 180px;
   height: 290px;
@@ -38,27 +38,29 @@ div {
 }
 
 
-#weather {
+.weather {
+  margin-bottom: auto;
   width: 140px;
   height: 50px;
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
-  font-size: 20px;
+  font-size: 2vmax;
   padding-top: 6px;
-  padding-bottom: 6px;
+  padding-bottom: auto;
 }
 
-#weathericon {
-  margin-top: 10px;
+.weathericon {
+  margin-top: 15px;
   width: 140px;
   height: 100px;
   margin-left: 20px;
   margin-right: 20px;
+  margin-bottom: auto;
 }
 
-#temp {
-  margin-top: 10px;
+.temp {
+  margin-top: auto;
   width: 140px;
   height: 70px;
   margin-left: 20px;
@@ -69,7 +71,7 @@ div {
   padding-bottom: 5px;
 }
 
-#display {
+.display {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -78,49 +80,49 @@ div {
   background: white;
 }
 
-#box1 {
+.box1 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box2 {
+.box2 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box3 {
+.box3 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box4 {
+.box4 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box5 {
+.box5 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box6 {
+.box6 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;
   margin-left: 5px;
 }
 
-#box7 {
+.box7 {
   width: 200px;
   height: 400px;
   background-color: #EBEBEB;

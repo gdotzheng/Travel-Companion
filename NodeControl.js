@@ -13,7 +13,7 @@ app.get('/',function(req,res){//Starts Server from html file
 app.use(express.static('.'));
 
 app.get('/weather', function(req,res){
-  var URL = "https://api.aerisapi.com/forecasts/"+ req.query.city + "?&format=json&filter=day&limit="+req.query.day+"&fields=.weatherPrimary,periods.avgTempF,periods.icon,periods.pop,periods.weather&client_id=KSCDpQX8QB3nS5miKzeN4&client_secret=X5jy1n9EDwpMA3j02v1wadma59bHM3rR5qRykTyz";
+  var URL = "https://api.aerisapi.com/forecasts/"+ req.query.city + "?&format=json&filter=day&limit="+req.query.day+"&fields=.weatherPrimary,periods.avgTempF,periods.icon,periods.weather&client_id=KSCDpQX8QB3nS5miKzeN4&client_secret=X5jy1n9EDwpMA3j02v1wadma59bHM3rR5qRykTyz";
   request.get(URL,function(error,response,body){
     var respond = JSON.parse(body)
     var output = respond.response[0].periods[respond.response[0].periods.length-1]
