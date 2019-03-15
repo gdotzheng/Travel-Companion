@@ -28,7 +28,7 @@ function datelimits(){
   var today = new Date();
   var nextdate = new Date();
   nextdate.setDate(nextdate.getDate() + 16)
-  var dd = today.getDate()+1;
+  var dd = today.getDate();
   var mm = today.getMonth()+1; //January is 0
   var yyyy = today.getFullYear();
   if(dd<10){

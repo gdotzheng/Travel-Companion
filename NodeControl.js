@@ -4,13 +4,6 @@ var bodyparser = require('body-parser');
 var unirest = require('unirest');
 var mysql = require('mysql');
 
-//var con = mysql.createConnection({
-//  host: "localhost",
-//  user: "root",
-//  password: "menman",
-//  database: "project_cs275"
-//});
-
 var con = mysql.createConnection({
   host: "rds-mysql-cs275.cgcd11jp8kci.us-east-1.rds.amazonaws.com",
   user: "admin",
@@ -46,10 +39,6 @@ app.get('/weather', function(req,res){
     //var output = [respond.response[0].periods[respond.response[0].periods.length-1].avgTempF,respond.response[0].periods[respond.response[0].periods.length-1].icon,respond.response[0].periods[respond.response[0].periods.length-1].pop,respond.response[0].periods[respond.response[0].periods.length-1].weather]
     return res.send(JSON.stringify(output))
 	});
-})
-
-app.get('/maps', function(req,res){
-
 })
 
 app.get('/iata', function(req,res){

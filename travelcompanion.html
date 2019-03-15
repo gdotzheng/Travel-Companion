@@ -92,7 +92,10 @@
 <script>
 
 function initMap(){
-
+  var map = new google.maps.Map(document.getElementById("map"),{
+      zoom:4,
+      center:new google.maps.LatLng(39.8283459,-98.5816684)
+    })
 }
 
 function getlatlng(){
@@ -120,13 +123,12 @@ function getlatlng(){
 }
 
 function createMap(arr){
-  document.getElementById("map").style.display = "block"
   var map = new google.maps.Map(document.getElementById("map"),{
       zoom:4,
       center:new google.maps.LatLng(39.8283459,-98.5816684)
     })
 
-  var rendererOptions = { map: map };
+  var rendererOptions = { map: map,suppressMarkers: true };
   directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
   var points = []
   for(var i = 0; i < arr.length; i++){
@@ -143,17 +145,32 @@ function createMap(arr){
 			origin: begin,
 			destination: end,
 			waypoints: wps,
+      optimizeWaypoints: true,
 			travelMode: google.maps.DirectionsTravelMode.DRIVING
 			};
   directionsService = new google.maps.DirectionsService();
 	directionsService.route(request, function(response, status) {
-				if (status == google.maps.DirectionsStatus.OK) {
-					directionsDisplay.setDirections(response);
-				}
-				else
-					alert ('failed to get directions');
-			});
-}
+    if (status === google.maps.DirectionsStatus.OK) {
+            directionsDisplay.setDirections(response);
+			var my_route = response.routes[0];
+            for (var i = 0; i < my_route.legs.length; i++) {
+                var marker = new google.maps.Marker({
+                    position: my_route.legs[i].start_location,
+                    label: "",
+                    map: map
+                });
+            }
+            var marker = new google.maps.Marker({
+                position: my_route.legs[i-1].end_location,
+                label: "",
+                map: map
+            });
+        }
+        else {
+          alert ('failed to get directions');
+        }
+    });
+  }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places&callback=initMap"></script>
 <input type="button" value="CreateMap" onclick="getlatlng()">
