@@ -45,7 +45,7 @@ div {
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
-  font-size: 2vmax;
+  font-size: 1.5vmax;
   padding-top: 6px;
   padding-bottom: auto;
 }
@@ -138,4 +138,10 @@ div {
 #addbutton:hover {
   cursor: pointer;
   filter: brightness(70%);
+}
+
+#map{
+  height: 400px;
+  width:100%;
+  display: none;
 }

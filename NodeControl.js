@@ -1,6 +1,32 @@
 var express = require('express');
 var request = require('request');
 var bodyparser = require('body-parser');
+var unirest = require('unirest');
+var mysql = require('mysql');
+
+//var con = mysql.createConnection({
+//  host: "localhost",
+//  user: "root",
+//  password: "menman",
+//  database: "project_cs275"
+//});
+
+var con = mysql.createConnection({
+  host: "rds-mysql-cs275.cgcd11jp8kci.us-east-1.rds.amazonaws.com",
+  user: "admin",
+  password: "mysqlcs275",
+  database: "airports"
+});
+
+con.connect(function(err){
+  if (err) {
+    console.log("Failed to connect to database")
+    console.log(err)
+  }
+  else{
+    console.log("Connected to database");
+  }
+});
 
 var app = express();
 var path = require("path");
@@ -22,6 +48,96 @@ app.get('/weather', function(req,res){
 	});
 })
 
+app.get('/maps', function(req,res){
+
+})
+
+app.get('/iata', function(req,res){
+  var name = []
+  var iata = []
+  var count = 1
+  for(var i = 0; i < req.query.cities.length; i++){
+    var sql_str = 'select distinct iata, name from airportsus where city = \"' + req.query.cities[i] + "\""
+    con.query(sql_str, function(err,rows,fields){
+    if (err){
+      console.log('Failed to get data')
+    }
+    else{
+      var a = []
+      var b = []
+      for(var j = 0; j < rows.length; j++){
+        a.push(rows[j].name)
+        b.push(rows[j].iata)
+      }
+      name.push(a)
+      iata.push(b)
+      if (count == req.query.cities.length){
+        res.json({
+          name:name,
+          iata:iata
+        })
+      }
+      else{
+        count += 1
+      }
+    }
+    })
+  }
+})
+app.get('/quotes', function(req,res){
+  var codes = []
+  var placeid = []
+  var regionid = []
+  var skycode = []
+  var count = 1
+  for(var i = 0; i < req.query.iata.length; i++){
+    var str = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/US/USD/en-US/?query="+req.query.iata[i]
+    unirest.get(str)
+    .header("X-RapidAPI-Key", "18aa168972msh162649f7af22656p129a1ejsn164eb25c5fce")
+    .end(function (result) {
+      for(var j = 0; j < result.body.Places.length; j++){
+        placeid.push(result.body.Places[j].PlaceId)
+        regionid.push(result.body.Places[j].RegionId)
+      }
+
+      if (count == req.query.iata.length){
+        var c = 0
+        while (c < req.query.region.length){
+          for(var k = 0; k < regionid.length; k++){
+            if(regionid[k] == req.query.region[c]){
+              skycode.push(placeid[k])
+            }
+          }
+          codes.push(skycode)
+          skycode = []
+          c += 1
+        }
+        var counter = 0
+        var prices = []
+        for(var i = 0; i < codes.length-1; i++){
+            var str ="https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/"+codes[i][0]+"/"+codes[i+1][0]+"/"+req.query.date[i+1]
+            unirest.get(str)
+            .header("X-RapidAPI-Key", "18aa168972msh162649f7af22656p129a1ejsn164eb25c5fce")
+            .end(function (result) {
+              if(typeof result.body.Quotes[0] == "undefined"){
+                prices.push("No Price Found")
+              }
+              else{
+                prices.push(result.body.Quotes[0].MinPrice)
+              }
+              counter += 1
+              if(counter == codes.length - 1) {
+                res.send(prices)
+              }
+            });
+        }
+      }
+      else{
+        count += 1
+      }
+    });
+  }
+})
 app.listen(8080, function(){
   console.log("Server started")
 })

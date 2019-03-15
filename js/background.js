@@ -28,7 +28,7 @@ function datelimits(){
   var today = new Date();
   var nextdate = new Date();
   nextdate.setDate(nextdate.getDate() + 16)
-  var dd = today.getDate();
+  var dd = today.getDate()+1;
   var mm = today.getMonth()+1; //January is 0
   var yyyy = today.getFullYear();
   if(dd<10){
@@ -118,6 +118,111 @@ function createlink(){
   document.getElementById("Link").innerHTML = "<a href="+link+">Link</a>"
 }
 
+function createQuote(){
+  var arr = []
+  if (document.getElementsByClassName("d")[i].value == ""){
+    alert("Please input a date before getting price quotes")
+    return
+  }
+  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
+    s = document.getElementsByClassName("addresses")[a].value;
+    s = s.substring(0, s.indexOf(','));
+    arr.push(s)
+  }
+  $.ajax({
+    type: "GET",
+    url: "/iata",
+    data: {
+      cities:arr,
+    },
+    dataType: "text",
+    success: function(data) {
+      document.getElementsByClassName("quotes")[0].innerHTML = ""
+      var arr = JSON.parse(data)
+      for (var i = 0; i < arr.name.length; i++){
+        var select = "<select name='Select' class='airports'><option>Please Select an Airport</option>"
+        for (var j = 0; j < arr.name[i].length; j++){
+          select += "<option>"+arr.iata[i][j]+" - "+arr.name[i][j]+"</option>"
+          if (arr.name[i].length == 1){
+            select = "<select name='Select' class='airports'><option>"+arr.iata[i][j]+" - "+arr.name[i][j]+"</option>"
+          }
+        }
+        select += "</select>"
+        if (arr.name[i].length == 0){
+          var select ='<input type="text" placeholder="Airport not found, Enter IATA">'
+        }
+        var div = document.createElement('div');
+        div.className = "quote"
+        div.innerHTML = select
+
+        var button = document.createElement('div')
+        button.id = "addbutton"
+        button.innerHTML = '<input type="button" value="Get Prices" onclick="getPrice()"/>'
+        document.getElementsByClassName("quotes")[0].appendChild(div);
+        initialize();
+      }
+      document.getElementsByClassName("quotes")[0].appendChild(button);
+      initialize()
+    },
+    //Error message if bad response
+    error: function(xhr, ajaxOptions, thrownError) {
+      $("#result").html("Invalid client id or secret key")
+    }
+  });
+}
+
+function getPrice(){
+  var arr = []
+  for(var a = 0; a < document.getElementsByClassName("airports").length; a++){
+    var s = document.getElementsByClassName("airports")[a].value;
+    s = s.substring(0, s.indexOf('-'));
+    if (s == ""){
+      alert("Please Select Airports")
+      return
+    }
+    arr.push(s.trim())
+  }
+  var region = []
+  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
+    var c = document.getElementsByClassName("addresses")[a].value;
+    c = c.substring(c.lastIndexOf(",") + 1,c.indexOf(','));
+    c = c.replace(',','')
+    c = c.replace(',','')
+    region.push(c.trim())
+  }
+  var dates = []
+  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
+    var c = document.getElementsByClassName("d")[a].value;
+    dates.push(c)
+  }
+  $.ajax({
+    type: "GET",
+    url: "/quotes",
+    data: {
+      iata:arr,
+      region:region,
+      date:dates
+    },
+    dataType: "text",
+    success: function(data) {
+      var arr = JSON.parse(data)
+      document.getElementsByClassName("prices")[0].innerHTML = ""
+      var string = ""
+      for(var i = 0; i < arr.length; i++){
+        string += "<p>"+arr[i]+"</p>"
+      }
+      var div = document.createElement('div');
+      div.className = "price"
+      div.innerHTML = string
+      document.getElementsByClassName("prices")[0].appendChild(div);
+      initialize();
+  },
+  error: function(xhr, ajaxOptions, thrownError) {
+      $("#result").html("Invalid client id or secret key")
+    }
+  });
+}
+
 function getWeather() {
   var city = document.getElementsByClassName("addresses")[i].value;
   var day = getDateDiff(new Date(),document.getElementsByClassName("d")[i].value)
@@ -136,18 +241,7 @@ function getWeather() {
       document.getElementsByClassName("weather")[i].innerHTML = "<p>"+arr.weather+"</p>"
       document.getElementsByClassName("weathericon")[i].innerHTML = '<img src="img/'+arr.icon+'" style="margin-left: auto;margin-right: auto;display: block;"/>'
       document.getElementsByClassName("temp")[i].innerHTML = "<p>"+arr.avgTempF+" °F</p>"
-      //var weatherPrimary = arr.weather
-      //var weatherIcon = arr.icon
-      //console.log(weatherIcon)
-      //var averageTemp = arr.avgTempF
 
-      //$("#" + arr[i]).find('#weather').html(weatherPrimary)
-      //$("#" + arr[i]).find('#weathericon').html(weathericon)
-      //$("#" + arr[i]).find("#weathericon").append('<img id="theImg" src="img/chancetstorm.png" />')
-      //$("#" + arr[i]).find('#temp').html(averageTemp+" °F")
-
-      //document.getElementsByClassName("weather").innerHTML = weatherPrimary
-      //document.getElementsByClassName("temp").innerHTML = averageTemp
       document.getElementById("addbutton").style.display = "block"
     },
     //Error message if bad response

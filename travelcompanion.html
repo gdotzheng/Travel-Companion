@@ -29,8 +29,7 @@
 </head>
 
 <body>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places"></script>
-
+  <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&callback=initMap"></script> -->
   <script>
 
     $(document).ready(function () {
@@ -54,7 +53,6 @@
 
   </script>
   <h1 align="center">Travel Companion</h1>
-
   <div class="display">
     <div class="box1">
       <center>
@@ -82,9 +80,83 @@
     </div>
   </center>
   </div>
-  <input type="button" value="Generate Link" onclick="createlink()"/>
+  <input type="button" value="Quotes" onclick="createQuote()"/>
   <div id = "Link">
   </div>
+
+<div class="quotes">
+</div>
+<div class="prices">
+</div>
+<div id = "map"></div>
+<script>
+
+function initMap(){
+
+}
+
+function getlatlng(){
+    if(document.getElementsByClassName("addresses").length == 1){
+      alert("Please have atleast 2 locations before creating a map")
+      return
+    }
+    var latlng = []
+    var counter = 0
+    var geocoder = new google.maps.Geocoder()
+    for(var i = 0; i < document.getElementsByClassName("addresses").length; i++){
+      var address = document.getElementsByClassName("addresses")[i].value
+      geocoder.geocode({'address':address},function(results,status){
+        if(status == google.maps.GeocoderStatus.OK){
+          var latitude = results[0].geometry.location.lat();
+          var longitude = results[0].geometry.location.lng();
+          latlng.push([latitude,longitude])
+          counter += 1
+        if(counter == document.getElementsByClassName("addresses").length) {
+          createMap(latlng)
+        }
+        }
+      })
+    }
+}
+
+function createMap(arr){
+  document.getElementById("map").style.display = "block"
+  var map = new google.maps.Map(document.getElementById("map"),{
+      zoom:4,
+      center:new google.maps.LatLng(39.8283459,-98.5816684)
+    })
+
+  var rendererOptions = { map: map };
+  directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+  var points = []
+  for(var i = 0; i < arr.length; i++){
+    points.push(new google.maps.LatLng(arr[i][0],arr[i][1]))
+  }
+  var wps = []
+  for (var i = 0; i < points.length; i++){
+    var point = points[i]
+    wps.push({"location":point})
+  }
+  var begin = points[0]
+  var end = points[points.length-1]
+  var request = {
+			origin: begin,
+			destination: end,
+			waypoints: wps,
+			travelMode: google.maps.DirectionsTravelMode.DRIVING
+			};
+  directionsService = new google.maps.DirectionsService();
+	directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+				else
+					alert ('failed to get directions');
+			});
+}
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places&callback=initMap"></script>
+<input type="button" value="CreateMap" onclick="getlatlng()">
 </body>
 
 </html>
