@@ -223,7 +223,7 @@ function getPrice(){
       document.getElementsByClassName("prices")[0].innerHTML = ""
       var string = ""
       for(var i = 0; i < arr.length; i++){
-        string += "<span style='padding-left: 170px';>"+"$"+arr[i]+"</span>"
+        string += "<span style='padding-left: 170px;font-weight:bold'>"+"$"+arr[i]+"</span>"
       }
       var div = document.createElement('div');
       div.className = "price"
