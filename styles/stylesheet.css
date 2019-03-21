@@ -221,8 +221,17 @@ div {
 }
 
 #map{
-  height: 400px;
-  width: 100%;
+  margin-left: 10%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 600px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
+  display: none;
+  margin-bottom: 60px;
 }
 
 .airports {

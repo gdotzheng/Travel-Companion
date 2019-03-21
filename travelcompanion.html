@@ -90,7 +90,7 @@
 
   <div class="getquotesbutton">
     <input id="getquotes" type="button" value="Get Quotes" onclick="createQuote()"/>
-    <input id="showmap" type="button" value="Show Map" onclick="createMap()"/>
+    <input id="showmap" type="button" value="Plot Route" onclick="getlatlng()"/>
     <input id="getprices" type="button" value="Get Prices" onclick="getPrice()"/>
   </div>
 
@@ -109,6 +109,7 @@ function initMap(){
 }
 
 function getlatlng(){
+    document.getElementById("map").style.display = "block"
     if(document.getElementsByClassName("addresses").length == 1){
       alert("Please have atleast 2 locations before creating a map")
       return
@@ -183,7 +184,6 @@ function createMap(arr){
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places&callback=initMap"></script>
-<input type="button" value="CreateMap" onclick="getlatlng()">
 </body>
 
 </html>
