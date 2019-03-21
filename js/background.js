@@ -1,4 +1,5 @@
 var i = 0
+var v = 0
 
 //$(document).ready(function(){
   //$("#citysearch").change(doGeocode)
@@ -63,7 +64,7 @@ function createDiv() {
   }
   var button = document.createElement('div')
   button.id = "addbutton"
-  button.innerHTML = '<img src="https://i.imgur.com/tJGKRxW.png" align="middle" width="100" height="100" onclick="createDiv();" />'
+  button.innerHTML = '<img src="img/arrow.png" align="middle" width="30" height="25" onclick="createDiv();" />'
   i += 1
   if (i > 6) {
     i = 0
@@ -119,7 +120,10 @@ function createlink(){
 }
 
 function createQuote(){
+  $("div.price").remove();
   var arr = []
+  document.getElementById("getprices").disabled = false;
+  document.getElementById("getprices").style.background = "#1a73e8";
   if (document.getElementsByClassName("d")[i].value == ""){
     alert("Please input a date before getting price quotes")
     return
@@ -139,8 +143,9 @@ function createQuote(){
     success: function(data) {
       document.getElementsByClassName("quotes")[0].innerHTML = ""
       var arr = JSON.parse(data)
+      var arr2 = []
       for (var i = 0; i < arr.name.length; i++){
-        var select = "<select name='Select' class='airports'><option>Please Select an Airport</option>"
+        var select = "<select name='Select' class='airports'><option>Select an Airport</option>"
         for (var j = 0; j < arr.name[i].length; j++){
           select += "<option>"+arr.iata[i][j]+" - "+arr.name[i][j]+"</option>"
           if (arr.name[i].length == 1){
@@ -149,20 +154,25 @@ function createQuote(){
         }
         select += "</select>"
         if (arr.name[i].length == 0){
-          var select ='<input type="text" placeholder="Airport not found, Enter IATA">'
+          var select ="<input type='text' class='airports' placeholder='Airport not found, Enter IATA'>"
         }
         var div = document.createElement('div');
         div.className = "quote"
         div.innerHTML = select
 
         var button = document.createElement('div')
-        button.id = "addbutton"
-        button.innerHTML = '<input type="button" value="Get Prices" onclick="getPrice()"/>'
-        document.getElementsByClassName("quotes")[0].appendChild(div);
+        //button.id = "addbutton"
+        //button.innerHTML = '<input type="button" value="Get Prices" onclick="getPrice()"/>'
+        arr2.push(div)
+      }
+      var arr = ["box1", "box2", "box3", "box4", "box5", "box6", "box7"]
+      $("div.quote").remove();
+      for(var j = 0; j < arr2.length; j++){
+        document.getElementsByClassName(arr[j])[0].appendChild(arr2[j]);
         initialize();
       }
-      document.getElementsByClassName("quotes")[0].appendChild(button);
-      initialize()
+      //document.getElementsByClassName("quotes")[0].appendChild(button);
+      //initialize()
     },
     //Error message if bad response
     error: function(xhr, ajaxOptions, thrownError) {
@@ -172,7 +182,10 @@ function createQuote(){
 }
 
 function getPrice(){
+  $("div.price").remove();
   var arr = []
+  v = 0
+  document.getElementById("getprices").disabled = true;
   for(var a = 0; a < document.getElementsByClassName("airports").length; a++){
     var s = document.getElementsByClassName("airports")[a].value;
     s = s.substring(0, s.indexOf('-'));
@@ -206,15 +219,17 @@ function getPrice(){
     dataType: "text",
     success: function(data) {
       var arr = JSON.parse(data)
+      var arr2 = ["box1", "box2", "box3", "box4", "box5", "box6", "box7"]
       document.getElementsByClassName("prices")[0].innerHTML = ""
       var string = ""
       for(var i = 0; i < arr.length; i++){
-        string += "<p>"+arr[i]+"</p>"
+        string += "<span style='padding-left: 170px';>"+"$"+arr[i]+"</span>"
       }
       var div = document.createElement('div');
       div.className = "price"
       div.innerHTML = string
-      document.getElementsByClassName("prices")[0].appendChild(div);
+      document.getElementsByClassName(arr2[v])[0].appendChild(div);
+      v += 1
       initialize();
   },
   error: function(xhr, ajaxOptions, thrownError) {

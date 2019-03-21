@@ -1,11 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Sarabun:400,700');
+@import url('https://fonts.googleapis.com/css?family=Muli:400,600');
 
-h1 {
-  font-size: 80px;
-}
-
-* {
-  font-family: 'Sarabun', sans-serif;
+*, body {
+  font-family: 'Muli', sans-serif;
   font-weight: 400;
 }
 
@@ -18,7 +14,7 @@ input[type="text"] {
 }
 
 div {
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 #theImg {
@@ -26,7 +22,7 @@ div {
 }
 
 ::placeholder {
-  color: black;
+  color: grey;
 }
 
 .result {
@@ -46,11 +42,12 @@ div {
   margin-right: 20px;
   text-align: center;
   font-size: 1.5vmax;
-  padding-top: 6px;
+  padding-top: 20px;
   padding-bottom: auto;
 }
 
 .weathericon {
+  padding-top: 40px;
   margin-top: 15px;
   width: 140px;
   height: 100px;
@@ -60,79 +57,162 @@ div {
 }
 
 .temp {
-  margin-top: auto;
+  margin-top: 60px;
   width: 140px;
   height: 70px;
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
   font-size: 40px;
-  padding-top: 5px;
+  padding-top: 15px;
   padding-bottom: 5px;
 }
 
 .display {
+  margin-left: 10%;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 500px;
+  width: 80%;
+  height: 600px;
   background: white;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
+}
+
+.map {
+  width: 80%;
+  height: 600px;
+  background: white;
+  border-radius: 15px;
+  box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
 }
 
 .box1 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box2 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box3 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box4 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box5 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box6 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
 }
 
 .box7 {
+  margin-top: -100px;
   width: 200px;
   height: 400px;
-  background-color: #EBEBEB;
+  background-color: white;
   margin-left: 5px;
+  border: 1px solid #dadce0;
+}
+
+.quote {
+  padding-top: 80px;
+  text-align: center;
+}
+
+.getquotesbutton {
+  margin-top: -20px;
+  text-align: center;
+}
+
+.prices {
+  padding-top: 30px;
+}
+
+.title {
+  padding-top: 10px;
+  width: 200px;
+  height: 100px;
+  text-align: center;
+  font-size: 50px;
+  margin: auto;
+}
+
+#getquotes {
+  margin-right: 10px;
+  border-radius: 45px;
+  background: #1a73e8;
+  width: 120px;
+  height: 40px;
+  color: white;
+  border: none;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+}
+
+#showmap {
+  margin-left: 10px;
+  margin-right: 10px;
+  border-radius: 45px;
+  background: #1a73e8;
+  width: 120px;
+  height: 40px;
+  color: white;
+  border: none;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
+}
+
+#getprices {
+  margin-left: 10px;
+  border-radius: 45px;
+  background: #D3D3D3;
+  width: 120px;
+  height: 40px;
+  color: white;
+  border: none;
+  box-shadow: 0 3px 5px -1px rgba(0,0,0,0.2), 0 6px 10px 0 rgba(0,0,0,0.14), 0 1px 18px 0 rgba(0,0,0,0.12);
 }
 
 #addbutton {
-  width: 100px;
-  height: 100px;
+  width: 20px;
+  height: 20px;
   margin-left: 5px;
+  margin-bottom: 100px;
 }
 
 #addbutton:hover {
@@ -142,5 +222,26 @@ div {
 
 #map{
   height: 400px;
-  width:100%;
+  width: 100%;
+}
+
+.airports {
+  width: 180px;
+  height: 30px;
+  overflow: hidden;
+  padding: 0 12px;
+  align-items: center;
+  border: 1px solid #dadce0;
+  border-radius: 4px;
+}
+
+.price {
+  padding-top: 20px;
+  font-size: 20px;
+}
+
+.d {
+  border: 1px solid #dadce0;
+  align-items: center;
+  border-radius: 4px;
 }
