@@ -265,3 +265,52 @@ function getWeather() {
     }
   });
 }
+
+function createPoi(){
+  document.getElementById("lastdiv").innerHTML = ""
+  var arr = []
+  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
+    s = document.getElementsByClassName("addresses")[a].value;
+    s = s.substring(0, s.indexOf(','));
+    arr.push(s)
+  }
+
+  for(var i = 0; i < arr.length; i++){
+    var string = '<input class="getplacesbutton" type="button" value="' +arr[i]+'" onclick="getPoi('+i+')"/>'
+    document.getElementById("lastdiv").innerHTML += string
+    getPoi(i)
+  }
+}
+
+function getPoi(n){
+  var arr = []
+  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
+    s = document.getElementsByClassName("addresses")[a].value;
+    s = s.substring(0, s.indexOf(','));
+    arr.push(s)
+  }
+  $.ajax({
+    type: "GET",
+    url: "/poi",
+    data: {
+      city:arr[n],
+    },
+    dataType: "text",
+    success: function(msg) {
+      var arr2 = JSON.parse(msg)
+      var string = arr[n] + ":\n<ul>"
+      for(var i = 0; i < arr2.length; i++){
+        string += "<li>"+arr2[i].name+"</li>"
+      }
+      string += "</ul>"
+      var div = document.createElement('div');
+      div.className = "PointsOfInterest"
+      div.innerHTML = string
+      document.getElementById("getplaces").innerHTML += string
+    },
+    //Error message if bad response
+    error: function(xhr, ajaxOptions, thrownError) {
+      $("#result").html("Invalid client id or secret key")
+    }
+  });
+}

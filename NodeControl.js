@@ -127,6 +127,36 @@ app.get('/quotes', function(req,res){
     });
   }
 })
+
+app.get('/poi', function(req,res){
+  var URL = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+req.query.city+"+tourism&language=en&key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y"
+  request.get(URL,function(error,response,body){
+    var respond = JSON.parse(body)
+    var arr = []
+    if (respond.results.length == 0){
+      res.send(JSON.stringify("No POIs"))
+    }
+    else if (respond.results.length == 1){
+      res.send(JSON.stringify([{name:respond.results[0].name, rating:respond.results[0].rating}]))
+    }
+    for(var i = 0; i < respond.results.length; i++){
+      arr.push({name: respond.results[i].name, rating: respond.results[i].rating})
+    }
+    arr.sort(function(a, b) {
+      return ((a.rating < b.rating) ? -1 : ((a.rating == b.rating) ? 0 : 1));
+    });
+    console.log(arr.length)
+    var newarr = []
+    if(arr.length <= 3){
+      res.send(JSON.stringify(arr))
+    }
+    for(var i = 1; i != 4; i++){
+      newarr.push(arr[arr.length-i])
+    }
+    res.send(JSON.stringify(newarr))
+	});
+})
+
 app.listen(8080, function(){
   console.log("Server started")
 })
