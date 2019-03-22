@@ -186,6 +186,7 @@ function getPrice(){
   var arr = []
   v = 0
   document.getElementById("getprices").disabled = true;
+  document.getElementById("getprices").style.background = '#808080';
   for(var a = 0; a < document.getElementsByClassName("airports").length; a++){
     var s = document.getElementsByClassName("airports")[a].value;
     s = s.substring(0, s.indexOf('-'));
