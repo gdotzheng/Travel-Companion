@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css?family=Muli:400,600');
+@import url('https://fonts.googleapis.com/css?family=Satisfy');
 
 *, body {
   font-family: 'Muli', sans-serif;
@@ -15,6 +16,33 @@ input[type="text"] {
 
 div {
   border-radius: 7px;
+}
+
+th {
+  font-family: 'Satisfy', cursive;
+  text-align: center;
+  font-size: 28px;
+  font-weight: bold;
+  padding-top: 15px;
+  padding-bottom: 13px;
+  text-decoration: underline;
+}
+
+tr td {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+a, td {
+  font-family: 'Varela Round', sans-serif;
+}
+
+tr, td {
+  text-align: center;
+}
+
+table {
+  text-align: center;
 }
 
 #theImg {
@@ -41,7 +69,7 @@ div {
   margin-left: 20px;
   margin-right: 20px;
   text-align: center;
-  font-size: 1.5vmax;
+  font-size: 1vmax;
   padding-top: 20px;
   padding-bottom: auto;
 }
@@ -103,10 +131,23 @@ div {
   box-shadow: 0 1px 3px rgba(60,64,67, 0.3), 0 4px 8px 3px rgba(60,64,67, 0.15);
 }
 
+.PointsOfInterest {
+  margin-top: -300px;
+  margin-left: 10px;
+  width: 200px;
+  height: 230px;
+  background-color: white;
+  border: 1px solid #dadce0;
+  display: flex;
+  justify-content: center;
+}
+
 .box1 {
   margin-top: -120px;
   width: 200px;
   height: 400px;
+  align-items: center;
+  text-align: center;
   background-color: white;
   margin-left: 5px;
   border: 1px solid #dadce0;
@@ -185,11 +226,12 @@ div {
 }
 
 .title {
+  font-family: 'Satisfy', cursive;
   padding-top: 10px;
   width: 200px;
-  height: 100px;
+  height: 150px;
   text-align: center;
-  font-size: 50px;
+  font-size: 70px;
   margin: auto;
 }
 

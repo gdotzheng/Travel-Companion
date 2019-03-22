@@ -137,10 +137,10 @@ app.get('/poi', function(req,res){
       res.send(JSON.stringify("No POIs"))
     }
     else if (respond.results.length == 1){
-      res.send(JSON.stringify([{name:respond.results[0].name, rating:respond.results[0].rating}]))
+      res.send(JSON.stringify([{name:respond.results[0].name, rating:respond.results[0].rating, placeid: respond.results[i].place_id}]))
     }
     for(var i = 0; i < respond.results.length; i++){
-      arr.push({name: respond.results[i].name, rating: respond.results[i].rating})
+      arr.push({name: respond.results[i].name, rating: respond.results[i].rating, placeid: respond.results[i].place_id})
     }
     arr.sort(function(a, b) {
       return ((a.rating < b.rating) ? -1 : ((a.rating == b.rating) ? 0 : 1));

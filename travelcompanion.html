@@ -99,9 +99,7 @@
 <div class="prices">
 </div>
 <div id = "map"></div>
-<div class="prices2">
-</div>
-<div class="lastdiv" id="lastdiv">
+<div class="display" style='display: none; box-shadow: none' >
 
 </div>
 
@@ -140,9 +138,8 @@ function getlatlng(){
 }
 
 function createMap(arr){
-  createPoi()
+
   //document.getElementById("getplacesbutton").style.display = "block"
-  document.getElementById("lastdiv").style.display = "block"
   var map = new google.maps.Map(document.getElementById("map"),{
       zoom:4,
       center:new google.maps.LatLng(39.8283459,-98.5816684)
@@ -190,6 +187,7 @@ function createMap(arr){
           alert ('failed to get directions');
         }
     });
+    createPoi()
   }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyADptAzE3RDVXq6GjgXCdTPYZBn7BYMU0Y&libraries=places&callback=initMap"></script>

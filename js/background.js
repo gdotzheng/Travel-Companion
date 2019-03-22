@@ -267,19 +267,10 @@ function getWeather() {
 }
 
 function createPoi(){
-  document.getElementById("lastdiv").innerHTML = ""
-  var arr = []
-  for(var a = 0; a < document.getElementsByClassName("addresses").length; a++){
-    s = document.getElementsByClassName("addresses")[a].value;
-    s = s.substring(0, s.indexOf(','));
-    arr.push(s)
-  }
+  document.getElementsByClassName("display")[1].style.display = "flex"
+  document.getElementsByClassName("display")[1].innerHTML = ""
 
-  for(var i = 0; i < arr.length; i++){
-    var string = '<input class="getplacesbutton" type="button" value="' +arr[i]+'" onclick="getPoi('+i+')"/>'
-    document.getElementById("lastdiv").innerHTML += string
-    getPoi(i)
-  }
+  getPoi(0)
 }
 
 function getPoi(n){
@@ -289,28 +280,40 @@ function getPoi(n){
     s = s.substring(0, s.indexOf(','));
     arr.push(s)
   }
-  $.ajax({
-    type: "GET",
-    url: "/poi",
-    data: {
-      city:arr[n],
-    },
-    dataType: "text",
-    success: function(msg) {
-      var arr2 = JSON.parse(msg)
-      var string = arr[n] + ":\n<ul>"
-      for(var i = 0; i < arr2.length; i++){
-        string += "<li>"+arr2[i].name+"</li>"
+  if(n == document.getElementsByClassName("addresses").length){
+    return
+  }
+  else{
+    $.ajax({
+      type: "GET",
+      url: "/poi",
+      data: {
+        city:arr[n],
+      },
+      dataType: "text",
+      success: function(msg) {
+        var arr2 = JSON.parse(msg)
+        var string = "<table><tr><th>"+arr[n]+"</th></tr>"
+        var list = ""
+        for(var i = 0; i < arr2.length; i++){
+          var str = arr2[i].name + ""
+          str = str.toLowerCase()
+          str = str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+          list += "<tr><td><a href='https://www.google.com/maps/place/?q=place_id:"+arr2[i].placeid+"' target='_blank'>"+str+"</a></td></tr>"
+        }
+        list += "</table>"
+        string += list
+        var div = document.createElement('div');
+        div.className = "PointsOfInterest"
+        div.innerHTML = string
+        document.getElementsByClassName("display")[1].appendChild(div)
+        initialize()
+        getPoi(n+1)
+      },
+      //Error message if bad response
+      error: function(xhr, ajaxOptions, thrownError) {
+        $("#result").html("Invalid client id or secret key")
       }
-      string += "</ul>"
-      var div = document.createElement('div');
-      div.className = "PointsOfInterest"
-      div.innerHTML = string
-      document.getElementById("getplaces").innerHTML += string
-    },
-    //Error message if bad response
-    error: function(xhr, ajaxOptions, thrownError) {
-      $("#result").html("Invalid client id or secret key")
-    }
-  });
+    });
+  }
 }
